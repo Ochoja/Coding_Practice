@@ -1,5 +1,5 @@
 {
-  "name": "0x01-basics",
+  "name": "0x02-notes",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -18,7 +18,6 @@
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "prettier": "^2.7.1",
-    "sass": "^1.57.1",
     "vite": "^4.0.0"
   }
 }
