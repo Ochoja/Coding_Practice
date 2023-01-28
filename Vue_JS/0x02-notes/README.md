@@ -1,6 +1,6 @@
 # 0x02-notes
 
-This template should help get you started developing with Vue 3 in Vite.
+Notes app developed with Vue
 
 ## Recommended IDE Setup
 
