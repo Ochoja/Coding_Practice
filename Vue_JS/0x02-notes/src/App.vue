@@ -1,61 +1,83 @@
 <script setup>
 import { ref } from "vue";
-const modal = ref(false);
+
+//states
+const showModal = ref(false);
+const note = ref("");
+const notes = ref([]);
+const errorMessage = ref(false);
+
+/*Methods*/
+//Add Note
+function addNote() {
+  if (note.value.length < 15) {
+    errorMessage.value = true;
+    return;
+  }
+
+  notes.value.push({
+    id: Math.floor(Math.random * 1000000),
+    text: note.value,
+    date: new Date(),
+    backgroundColor: getRandomColor(),
+  });
+
+  showModal.value = false; //close modal
+  note.value = ""; //reset the value of textarea
+}
+
+//Close Popup Modal
+const closeModal = () => {
+  showModal.value = false;
+  errorMessage.value = false;
+  note.value = "";
+};
+
+//Generates a random color for note
+function getRandomColor() {
+  return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+}
 </script>
 
 <template>
   <main>
     <header>
       <h1>Notes</h1>
-      <button @click="modal = true">+</button>
+      <button @click="showModal = true">+</button>
     </header>
 
     <section class="notes">
-      <div class="card">
-        <div class="note">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique
-          reiciendis illum repellat cupiditate natus odio aliquid deserunt
-          tenetur fugiat cumque?
-        </div>
-        <div class="date">27/01/2022</div>
-      </div>
-
-      <div class="card">
-        <div class="note">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique
-          reiciendis illum repellat cupiditate natus odio aliquid deserunt
-          tenetur fugiat cumque?
-        </div>
-        <div class="date">27/01/2022</div>
-      </div>
-
-      <div class="card">
-        <div class="note">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique
-          reiciendis illum repellat cupiditate natus odio aliquid deserunt
-          tenetur fugiat cumque?
-        </div>
-        <div class="date">27/01/2022</div>
+      <div
+        v-for="(note, index) in notes"
+        :key="index"
+        :style="{ backgroundColor: note.backgroundColor }"
+        class="card"
+      >
+        <div class="note">{{ note.text }}</div>
+        <div class="date">{{ note.date.toLocaleDateString("en-GB") }}</div>
       </div>
     </section>
   </main>
 
-  <div v-if="modal" class="popup">
+  <!-- Popup modal -->
+  <div v-if="showModal" class="popup">
     <div class="form">
       <div class="text">
-        <textarea></textarea>
+        <textarea v-model.trim="note" placeholder="add a new note"></textarea>
       </div>
 
-      <button>Add Note</button>
-
-      <button @click="modal = false" class="close">Close</button>
+      <div v-show="errorMessage" class="error">
+        Note should not be less than 15 characters
+      </div>
+      <button @click="addNote()">Add Note</button>
+      <button @click="closeModal()" class="close">Close</button>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 main {
-  width: 50%;
+  width: 70%;
   margin: auto;
   font-family: "Poppins", sans-serif;
 
@@ -88,7 +110,6 @@ header {
 
 .notes {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   gap: 25px;
 
@@ -96,12 +117,21 @@ header {
     font-size: 0.9em;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     justify-content: space-between;
     width: 14em;
+    height: 15em;
     background: chocolate;
     border-radius: 5px;
     padding: 8px;
+
+    .note {
+      overflow-wrap: break-word;
+      overflow-y: auto;
+    }
+    .date {
+      font-weight: 600;
+      padding-top: 10px;
+    }
   }
 }
 
@@ -142,6 +172,12 @@ header {
       border: 2px solid blue;
     }
 
+    //error message
+    .error {
+      color: red;
+      margin-bottom: 5px;
+    }
+
     button {
       width: 100%;
       border: none;
@@ -152,6 +188,7 @@ header {
       cursor: pointer;
     }
 
+    //close button
     .close {
       margin-top: 8px;
       background: red;
