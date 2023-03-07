@@ -2,8 +2,6 @@
 import data from "../data.json";
 import { ref } from "vue";
 const subjects = ref(data);
-
-console.log(subjects);
 </script>
 
 <template>
