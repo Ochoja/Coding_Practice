@@ -1,22 +1,33 @@
 <script setup>
 import data from "../data.json";
-import { ref } from "vue";
+import Card from "./components/SubjectCard.vue";
+import { ref, watch } from "vue";
 const subjects = ref(data);
+const search = ref(""); //holds result of search
+
+//Watchers
+watch(search, () => {
+  //update subjects value based on search query
+  subjects.value = data.filter((subject) =>
+    subject.name.toLowerCase().includes(search.value.toLowerCase())
+  );
+});
 </script>
 
 <template>
   <main>
     <header>
       <h1>Quizzes</h1>
-      <input type="search" placeholder="Search.." />
+      <input v-model="search" type="search" placeholder="Search.." />
     </header>
 
     <section class="quizzes">
-      <div class="subject" v-for="subject in subjects" :key="subject.id">
+      <!-- <div class="subject" v-for="subject in subjects" :key="subject.id">
         <img :src="subject.img" alt="" />
         <h2>{{ subject.name }}</h2>
         <div class="num-question">{{ subject.questions.length }} questions</div>
-      </div>
+      </div> -->
+      <Card v-for="subject in subjects" :key="subject.id" />
     </section>
   </main>
 </template>
@@ -50,27 +61,5 @@ header {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
-
-  .subject {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    box-shadow: rgba(32, 29, 29, 0.1) 0px 4px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-
-    img {
-      border-radius: 5px 5px 0 0;
-    }
-
-    h2 {
-      margin: 8px 0 0 0;
-      padding: 0px 8px;
-    }
-
-    .num-question {
-      padding: 0 0 8px 8px;
-    }
-  }
 }
 </style>
