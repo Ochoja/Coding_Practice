@@ -1,13 +1,12 @@
-<script></script>
+<script setup>
+defineProps(["subject"]);
+</script>
 
 <template>
   <div class="subject">
-    <img
-      src="https://marvel-b1-cdn.bc0a.com/f00000000026007/resilienteducator.com/wp-content/uploads/2012/11/AdobeStock_60467600_cup.jpg"
-      alt=""
-    />
-    <h2>Name</h2>
-    <div class="num-question">3 questions</div>
+    <img :src="subject.img" alt="" />
+    <h2>{{ subject.name }}</h2>
+    <div class="num-question">{{ subject.questions.length }} questions</div>
   </div>
 </template>
 

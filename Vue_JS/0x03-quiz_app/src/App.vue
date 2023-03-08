@@ -1,11 +1,14 @@
 <script setup>
+/**Imports**/
 import data from "../data.json";
 import Card from "./components/SubjectCard.vue";
 import { ref, watch } from "vue";
+
+/**Data**/
 const subjects = ref(data);
 const search = ref(""); //holds result of search
 
-//Watchers
+/**Watchers**/
 watch(search, () => {
   //update subjects value based on search query
   subjects.value = data.filter((subject) =>
@@ -22,12 +25,7 @@ watch(search, () => {
     </header>
 
     <section class="quizzes">
-      <!-- <div class="subject" v-for="subject in subjects" :key="subject.id">
-        <img :src="subject.img" alt="" />
-        <h2>{{ subject.name }}</h2>
-        <div class="num-question">{{ subject.questions.length }} questions</div>
-      </div> -->
-      <Card v-for="subject in subjects" :key="subject.id" />
+      <Card v-for="subject in subjects" :key="subject.id" :subject="subject" />
     </section>
   </main>
 </template>
