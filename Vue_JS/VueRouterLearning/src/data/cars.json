@@ -3,30 +3,50 @@
     "id": 1,
     "brand": "Toyota",
     "year": 1994,
-    "price": 2500
+    "price": 2500,
+    "contact": {
+      "dealer": "Daniel",
+      "number": "123-456-7890"
+    }
   },
   {
     "id": 2,
-    "brand": "Bently",
+    "brand": "Bentley",
     "year": 2007,
-    "price": 5500
+    "price": 5500,
+    "contact": {
+      "dealer": "Laith",
+      "number": "423-426-7990"
+    }
   },
   {
     "id": 3,
     "brand": "Honda",
     "year": 2002,
-    "price": 4999
+    "price": 4999,
+    "contact": {
+      "dealer": "Daniel",
+      "number": "223-456-7830"
+    }
   },
   {
     "id": 4,
     "brand": "Tesla",
     "year": 2021,
-    "price": 8000
+    "price": 8000,
+    "contact": {
+      "dealer": "Daniel",
+      "number": "183-456-7320"
+    }
   },
   {
     "id": 5,
     "brand": "Audi",
     "year": 2018,
-    "price": 6000
+    "price": 6000,
+    "contact": {
+      "dealer": "Daniel",
+      "number": "246-916-7890"
+    }
   }
 ]
